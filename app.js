@@ -15,7 +15,7 @@ function autoPull(cb) {
     if (err) return console.error(err);
 
     async.forEachLimit(procs, 1, function(proc, next) {
-      if (proc.pm2_env && proc.pm2_env.versioning) {
+      if (proc.pm2_env && proc.pm2_env.versioning && proc.pm2_env.env && proc.pm2_env.env.AUTO_PULL) {
         pm2.pullAndReload(proc.name, function(err, meta) {
           if (meta) {
             app_updated.inc();
